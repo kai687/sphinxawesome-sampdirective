@@ -55,8 +55,8 @@ If the code block begins with a prompt character (`#`, `$`, or `~`), they will b
 up as well. The style for the prompt character is provided by the `pygments` syntax
 highlighting module.
 
-The [sphinxawesome theme](https://github.com/kai687/sphinxawesome-theme) includes
-styling for the `..samp::` directive.
+The [Sphinx awesome theme](https://github.com/kai687/sphinxawesome-theme) includes
+styling for the `..samp::` directive by default.
 
 ## Caveat
 
