@@ -1,4 +1,4 @@
-# Sphinx Awesome Sampdirective
+# Sphinx awesome sampdirective
 
 ![GitHub](https://img.shields.io/github/license/kai687/sphinxawesome-sampdirective?color=blue&style=for-the-badge)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/kai687/sphinxawesome-sampdirective/Run%20unit%20tests?style=for-the-badge)
@@ -61,8 +61,8 @@ styling for the `..samp::` directive.
 ## Caveat
 
 This extension does not provide full syntax highlighting. It is currently not possible
-to have code blocks with both markup _and_ syntax highlighting. If you need to render
-markup, for example links, or bold or italic text, choose the `.. parsed-literal::`
-directive. If you just want to highlight a placeholder variable, use the `.. samp::`
-directive provided by this extension. If you need full syntax highlighting, use the
-`.. code-block::` directive.
+to have code blocks with both markup _and_ syntax highlighting. You have to choose between the following: 
+
+- If you need to render markup, for example links, or bold or italic text, choose the `.. parsed-literal::` directive. 
+- If you just want to highlight a placeholder variable, use the `.. samp::` directive provided by this extension. 
+- If you need full syntax highlighting, use the `.. code-block::` directive.
