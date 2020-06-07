@@ -2,6 +2,8 @@
 
 ![GitHub](https://img.shields.io/github/license/kai687/sphinxawesome-sampdirective?color=blue&style=for-the-badge)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/kai687/sphinxawesome-sampdirective/Run%20unit%20tests?style=for-the-badge)
+![PyPI](https://img.shields.io/pypi/v/sphinxawesome-sampdirective?style=for-the-badge)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/sphinxawesome-sampdirective?style=for-the-badge)
 ![Code Style](https://img.shields.io/badge/Code%20Style-Black-000000?style=for-the-badge)
 
 This Sphinx extension provides a new directive `.. samp::` which works much like the
