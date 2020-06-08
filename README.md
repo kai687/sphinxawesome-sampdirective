@@ -6,7 +6,7 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/sphinxawesome-sampdirective?style=for-the-badge)
 ![Code Style](https://img.shields.io/badge/Code%20Style-Black-000000?style=for-the-badge)
 
-This Sphinx extension provides a new directive `.. samp::` which works much like the
+This Sphinx extension provides a new directive `samp` which works much like the
 interpreted text role
 [samp](https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#role-samp).
 This extension can be used to markup placeholder variables in code blocks.
@@ -56,13 +56,13 @@ up as well. The style for the prompt character is provided by the `pygments` syn
 highlighting module.
 
 The [Sphinx awesome theme](https://github.com/kai687/sphinxawesome-theme) includes
-styling for the `..samp::` directive by default.
+styling for the `samp` directive by default.
 
 ## Caveat
 
 This extension does not provide full syntax highlighting. It is currently not possible
 to have code blocks with both markup _and_ syntax highlighting. You have to choose between the following: 
 
-- If you need to render markup, for example links, or bold or italic text, choose the `.. parsed-literal::` directive. 
-- If you just want to highlight a placeholder variable, use the `.. samp::` directive provided by this extension. 
-- If you need full syntax highlighting, use the `.. code-block::` directive.
+- If you need to render markup, for example links, or bold or italic text, choose the `parsed-literal` directive. 
+- If you just want to highlight a placeholder variable, use the `samp` directive provided by this extension. 
+- If you need full syntax highlighting, use the `code-block` directive.
