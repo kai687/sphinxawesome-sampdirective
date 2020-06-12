@@ -1,6 +1,7 @@
 """Unit Tests for the sphinxawesome.sampdirective module"""
 
 from pathlib import Path
+
 import pytest
 from sphinx.testing.util import etree_parse
 from sphinxawesome.sampdirective import __version__
@@ -76,17 +77,52 @@ def test_parses_samp_with_placeholder_correctly(app):
     assert len(test) == 1
     assert test[0].get("classes") == "var"
 
+
+@pytest.mark.sphinx(
+    "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
+)
+def test_parses_samp_with_one_prompt(app):
+    """It parses samp directives with a single prompt."""
+    app.builder.build_all()
+
+    et = etree_parse(app.outdir / "index.xml")
+    blocks = et.findall("./section/literal_block")
+
     #  third block has a "gp" class for the prompt character
-    #  test = blocks[2].findall("./inline")
-    #  assert len(test) == 1
-    #  assert test[0].get("classes") == "gp"
+    test = blocks[2].findall("./inline")
+    assert len(test) == 1
+    assert test[0].get("classes") == "gp"
+
+
+@pytest.mark.xfail(reason="Currently a bug.")
+@pytest.mark.sphinx(
+    "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
+)
+def test_parses_samp_with_two_prompts(app):
+    """It parses samp directives with multiple prompts."""
+    app.builder.build_all()
+
+    et = etree_parse(app.outdir / "index.xml")
+    blocks = et.findall("./section/literal_block")
 
     #  fourth block has 2 prompts
-    #  test = blocks[3].findall("./inline")
-    #  assert len(test) == 2
-    #  assert test[0].get("classes") == "gp"
-    #  assert test[1].get("classes") == "gp"
+    test = blocks[3].findall("./inline")
+    assert len(test) == 2
+    assert test[0].get("classes") == "gp"
+    assert test[1].get("classes") == "gp"
+
+
+@pytest.mark.xfail(reason="Currently a bug.")
+@pytest.mark.sphinx(
+    "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
+)
+def test_parses_samp_directive_with_prompt_char_in_variable(app):
+    """It parses samp directives with a prompt character at the beginning in a variable."""
+    app.builder.build_all()
+
+    et = etree_parse(app.outdir / "index.xml")
+    blocks = et.findall("./section/literal_block")
 
     #  fourth block should not have "gp", because it's not a prompt
-    #  test = blocks[3].findall("./inline")
-    #  assert len(test) == 0
+    test = blocks[3].findall("./inline")
+    assert len(test) == 0
