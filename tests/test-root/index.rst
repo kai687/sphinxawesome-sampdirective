@@ -10,3 +10,16 @@ Just a normal paragraph.
 .. samp::
 
    replace {THIS}
+
+.. samp::
+
+   $ beginning prompt, $VAR in the middle.
+
+.. samp::
+
+   $ first line
+   $ second line
+
+.. samp::
+
+   $HOME should not be highlighted

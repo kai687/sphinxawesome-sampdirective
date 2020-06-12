@@ -47,9 +47,10 @@ def test_samp_directive(app, status, warning):
 
     assert "" in warning.getvalue()
 
+    # we should have converted 5 ``samp`` directives
     et = etree_parse(app.outdir / "index.xml")
     blocks = et.findall("./section/literal_block")
-    assert len(blocks) == 2
+    assert len(blocks) == 5
 
     # first block has no {REPLACE} placeholder
     test = blocks[0].findall("./emphasis")
@@ -59,3 +60,18 @@ def test_samp_directive(app, status, warning):
     test = blocks[1].findall("./emphasis")
     assert len(test) == 1
     assert test[0].get("classes") == "var"
+
+    # third block has a "gp" class for the prompt character
+    test = blocks[2].findall("./inline")
+    assert len(test) == 1
+    assert test[0].get("classes") == "gp"
+
+    # fourth block has 2 prompts
+    # test = blocks[3].findall("./inline")
+    # assert len(test) == 2
+    # assert test[0].get("classes") == "gp"
+    # assert test[1].get("classes") == "gp"
+
+    # fourth block should not have "gp", because it's not a prompt
+    # test = blocks[3].findall("./inline")
+    # assert len(test) == 0
