@@ -6,7 +6,7 @@ from typing import Any
 import nox
 from nox.sessions import Session
 
-nox.options.sessions = ["tests", "lint", "mypy", "pytype"]
+nox.options.sessions = ["tests", "lint", "mypy", "pytype", "safety"]
 locations = ["src", "tests", "noxfile.py"]
 python_versions = ["3.6", "3.7", "3.8"]
 
@@ -85,3 +85,19 @@ def typeguard(session: Session) -> None:
     session.run("poetry", "install", "--no-dev", external=True)
     install_constrained_version(session, "pytest", "typeguard")
     session.run("pytest", f"--typeguard-packages={package}", *session.posargs)
+
+
+@nox.session(python="3.8")
+def safety(session: Session) -> None:
+    """Check for insecure dependencies with safety."""
+    with tempfile.NamedTemporaryFile() as requirements:
+        session.run(
+            "poetry",
+            "export",
+            "--dev",
+            "--format=requirements.txt",
+            f"--output={requirements.name}",
+            external=True,
+        )
+        install_constrained_version(session, "safety")
+        session.run("safety", "check", f"--file={requirements.name}", "--full-report")
