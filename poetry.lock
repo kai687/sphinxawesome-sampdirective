@@ -142,6 +142,15 @@ toml = ["toml"]
 
 [[package]]
 category = "dev"
+description = "Decorators for Humans"
+marker = "python_version == \"3.6\" or python_version == \"3.7\" or python_version == \"3.8\""
+name = "decorator"
+optional = false
+python-versions = ">=2.6, !=3.0.*, !=3.1.*"
+version = "4.4.2"
+
+[[package]]
+category = "dev"
 description = "Distribution utilities"
 name = "distlib"
 optional = false
@@ -320,6 +329,19 @@ version = "1.2.0"
 
 [[package]]
 category = "dev"
+description = "A library to calculate python dependency graphs."
+marker = "python_version == \"3.6\" or python_version == \"3.7\" or python_version == \"3.8\""
+name = "importlab"
+optional = false
+python-versions = ">=2.7.0"
+version = "0.5.1"
+
+[package.dependencies]
+networkx = "*"
+six = "*"
+
+[[package]]
+category = "dev"
 description = "Read metadata from Python packages"
 marker = "python_version < \"3.8\""
 name = "importlib-metadata"
@@ -416,6 +438,40 @@ name = "mypy-extensions"
 optional = false
 python-versions = "*"
 version = "0.4.3"
+
+[[package]]
+category = "dev"
+description = "Python package for creating and manipulating graphs and networks"
+marker = "python_version == \"3.6\" or python_version == \"3.7\" or python_version == \"3.8\""
+name = "networkx"
+optional = false
+python-versions = ">=3.5"
+version = "2.4"
+
+[package.dependencies]
+decorator = ">=4.3.0"
+
+[package.extras]
+all = ["numpy", "scipy", "pandas", "matplotlib", "pygraphviz", "pydot", "pyyaml", "gdal", "lxml", "pytest"]
+gdal = ["gdal"]
+lxml = ["lxml"]
+matplotlib = ["matplotlib"]
+numpy = ["numpy"]
+pandas = ["pandas"]
+pydot = ["pydot"]
+pygraphviz = ["pygraphviz"]
+pytest = ["pytest"]
+pyyaml = ["pyyaml"]
+scipy = ["scipy"]
+
+[[package]]
+category = "dev"
+description = "Ninja is a small build system with a focus on speed"
+marker = "python_version == \"3.6\" or python_version == \"3.7\" or python_version == \"3.8\""
+name = "ninja"
+optional = false
+python-versions = "*"
+version = "1.10.0"
 
 [[package]]
 category = "dev"
@@ -576,14 +632,31 @@ description = "Pytest plugin for measuring coverage."
 name = "pytest-cov"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "2.9.0"
+version = "2.10.0"
 
 [package.dependencies]
 coverage = ">=4.4"
-pytest = ">=3.6"
+pytest = ">=4.6"
 
 [package.extras]
 testing = ["fields", "hunter", "process-tests (2.0.2)", "six", "pytest-xdist", "virtualenv"]
+
+[[package]]
+category = "dev"
+description = "Python type inferencer"
+marker = "python_version == \"3.6\" or python_version == \"3.7\" or python_version == \"3.8\""
+name = "pytype"
+optional = false
+python-versions = "<3.9,>=3.5"
+version = "2020.6.1"
+
+[package.dependencies]
+attrs = "*"
+importlab = ">=0.5.1"
+ninja = "*"
+pyyaml = ">=3.11"
+six = "*"
+typed_ast = "*"
 
 [[package]]
 category = "main"
@@ -794,11 +867,12 @@ category = "main"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 name = "urllib3"
 optional = false
-python-versions = "*"
-version = "1.22"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
+version = "1.25.9"
 
 [package.extras]
-secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "ipaddress"]
+brotli = ["brotlipy (>=0.6.0)"]
+secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "pyOpenSSL (>=0.14)", "ipaddress"]
 socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7,<2.0)"]
 
 [[package]]
@@ -849,7 +923,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "3716c73131a8e8fc07741703494ac51d3abaa4b117264fbcf1bcc759ea39b1ff"
+content-hash = "df469b40b80a5807fc69312acb10c862c6342d6d8558636df80780f1b4d41995"
 python-versions = ">=3.6.1, <4.0.0"
 
 [metadata.files]
@@ -934,6 +1008,10 @@ coverage = [
     {file = "coverage-5.1-cp39-cp39-win_amd64.whl", hash = "sha256:bb28a7245de68bf29f6fb199545d072d1036a1917dca17a1e75bbb919e14ee8e"},
     {file = "coverage-5.1.tar.gz", hash = "sha256:f90bfc4ad18450c80b024036eaf91e4a246ae287701aaa88eaebebf150868052"},
 ]
+decorator = [
+    {file = "decorator-4.4.2-py2.py3-none-any.whl", hash = "sha256:41fa54c2a0cc4ba648be4fd43cff00aedf5b9465c9bf18d64325bc225f08f760"},
+    {file = "decorator-4.4.2.tar.gz", hash = "sha256:e3a62f0520172440ca0dcc823749319382e377f37f140a0b99ef45fecb84bfe7"},
+]
 distlib = [
     {file = "distlib-0.3.0.zip", hash = "sha256:2e166e231a26b36d6dfe35a48c4464346620f8645ed0ace01ee31822b288de21"},
 ]
@@ -994,6 +1072,9 @@ idna = [
 imagesize = [
     {file = "imagesize-1.2.0-py2.py3-none-any.whl", hash = "sha256:6965f19a6a2039c7d48bca7dba2473069ff854c36ae6f19d2cde309d998228a1"},
     {file = "imagesize-1.2.0.tar.gz", hash = "sha256:b1f6b5a4eab1f73479a50fb79fcf729514a900c341d8503d62a62dbc4127a2b1"},
+]
+importlab = [
+    {file = "importlab-0.5.1.tar.gz", hash = "sha256:d855350d19dc10a17aabd2fe6f4b428ff1a936071f692fbf686a73694d26a51c"},
 ]
 importlib-metadata = [
     {file = "importlib_metadata-1.6.1-py2.py3-none-any.whl", hash = "sha256:15ec6c0fd909e893e3a08b3a7c76ecb149122fb14b7efe1199ddd4c7c57ea958"},
@@ -1065,6 +1146,23 @@ mypy-extensions = [
     {file = "mypy_extensions-0.4.3-py2.py3-none-any.whl", hash = "sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d"},
     {file = "mypy_extensions-0.4.3.tar.gz", hash = "sha256:2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8"},
 ]
+networkx = [
+    {file = "networkx-2.4-py3-none-any.whl", hash = "sha256:cdfbf698749a5014bf2ed9db4a07a5295df1d3a53bf80bf3cbd61edf9df05fa1"},
+    {file = "networkx-2.4.tar.gz", hash = "sha256:f8f4ff0b6f96e4f9b16af6b84622597b5334bf9cae8cf9b2e42e7985d5c95c64"},
+]
+ninja = [
+    {file = "ninja-1.10.0-py2-none-macosx_10_6_x86_64.whl", hash = "sha256:a4b57528c5f53f3014eb2c1328c08cfe2a4339e9c24799c58f24a3481a125ef3"},
+    {file = "ninja-1.10.0-py2-none-manylinux1_i686.whl", hash = "sha256:75fbe376d655487d8016dae6742d995362095a3d992cefd2d1a33ca6ea21f3e0"},
+    {file = "ninja-1.10.0-py2-none-manylinux1_x86_64.whl", hash = "sha256:9e8674e93d16c890abc41957b5d9cffca645f45d263dc095bb9c96652c848c96"},
+    {file = "ninja-1.10.0-py2-none-win32.whl", hash = "sha256:1a4aa6b2fd4574114ee9171051775400d621b0bbd30f18c5f70896517c84c658"},
+    {file = "ninja-1.10.0-py2-none-win_amd64.whl", hash = "sha256:6995df9c384f91cddfe0990f5518c953227fad83dc07205f374cd4060a376a80"},
+    {file = "ninja-1.10.0-py3-none-macosx_10_6_x86_64.whl", hash = "sha256:6b87f02be70881de8a7325432c3c870ba36b84f9693cfe63abe37a959d8f63b5"},
+    {file = "ninja-1.10.0-py3-none-manylinux1_i686.whl", hash = "sha256:ed3e245fd6c9785370422874f28753c3d79f60a69bfc10414fa5dc8e8c666fbb"},
+    {file = "ninja-1.10.0-py3-none-manylinux1_x86_64.whl", hash = "sha256:d7a33ff0e1c7b88cbb64d88181ac90c66f69b5663396c21eb2548d935cc98250"},
+    {file = "ninja-1.10.0-py3-none-win32.whl", hash = "sha256:968f3cb84dcd2646a8661b18c5ff0f51b1ee9426b263d7bd5a565471507b69cd"},
+    {file = "ninja-1.10.0-py3-none-win_amd64.whl", hash = "sha256:83a9fb7b3501542d459011c00ee19bb43b0a267da0d311b56afb2e901df0e3a1"},
+    {file = "ninja-1.10.0.tar.gz", hash = "sha256:654e739b3fe2595ee023134e3a148fb5c1c31a9894b4eb8ff7060b1a11dc7413"},
+]
 nodeenv = [
     {file = "nodeenv-1.4.0-py2.py3-none-any.whl", hash = "sha256:4b0b77afa3ba9b54f4b6396e60b0c83f59eaeb2d63dc3cc7a70f7f4af96c82bc"},
 ]
@@ -1117,8 +1215,11 @@ pytest = [
     {file = "pytest-5.4.3.tar.gz", hash = "sha256:7979331bfcba207414f5e1263b5a0f8f521d0f457318836a7355531ed1a4c7d8"},
 ]
 pytest-cov = [
-    {file = "pytest-cov-2.9.0.tar.gz", hash = "sha256:b6a814b8ed6247bd81ff47f038511b57fe1ce7f4cc25b9106f1a4b106f1d9322"},
-    {file = "pytest_cov-2.9.0-py2.py3-none-any.whl", hash = "sha256:c87dfd8465d865655a8213859f1b4749b43448b5fae465cb981e16d52a811424"},
+    {file = "pytest-cov-2.10.0.tar.gz", hash = "sha256:1a629dc9f48e53512fcbfda6b07de490c374b0c83c55ff7a1720b3fccff0ac87"},
+    {file = "pytest_cov-2.10.0-py2.py3-none-any.whl", hash = "sha256:6e6d18092dce6fad667cd7020deed816f858ad3b49d5b5e2b1cc1c97a4dba65c"},
+]
+pytype = [
+    {file = "pytype-2020.6.1.tar.gz", hash = "sha256:08ddb9940764492b701a8985c30437239eb2c34003448cca760769264f5ff2f8"},
 ]
 pytz = [
     {file = "pytz-2020.1-py2.py3-none-any.whl", hash = "sha256:a494d53b6d39c3c6e44c3bec237336e14305e4f29bbf800b599253057fbb79ed"},
@@ -1241,8 +1342,8 @@ typing-extensions = [
     {file = "typing_extensions-3.7.4.2.tar.gz", hash = "sha256:79ee589a3caca649a9bfd2a8de4709837400dfa00b6cc81962a1e6a1815969ae"},
 ]
 urllib3 = [
-    {file = "urllib3-1.22-py2.py3-none-any.whl", hash = "sha256:06330f386d6e4b195fbfc736b297f58c5a892e4440e54d294d7004e3a9bbea1b"},
-    {file = "urllib3-1.22.tar.gz", hash = "sha256:cc44da8e1145637334317feebd728bd869a35285b93cbb4cca2577da7e62db4f"},
+    {file = "urllib3-1.25.9-py2.py3-none-any.whl", hash = "sha256:88206b0eb87e6d677d424843ac5209e3fb9d0190d0ee169599165ec25e9d9115"},
+    {file = "urllib3-1.25.9.tar.gz", hash = "sha256:3018294ebefce6572a474f0604c2021e33b3fd8006ecd11d62107a5d2a963527"},
 ]
 virtualenv = [
     {file = "virtualenv-20.0.21-py2.py3-none-any.whl", hash = "sha256:a730548b27366c5e6cbdf6f97406d861cccece2e22275e8e1a757aeff5e00c70"},

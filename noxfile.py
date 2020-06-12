@@ -6,7 +6,7 @@ from typing import Any
 import nox
 from nox.sessions import Session
 
-nox.options.sessions = ["tests", "lint", "mypy"]
+nox.options.sessions = ["tests", "lint", "mypy", "pytype"]
 locations = ["src", "tests", "noxfile.py"]
 
 
@@ -67,3 +67,11 @@ def mypy(session: Session) -> None:
     args = session.posargs or locations
     install_constrained_version(session, "mypy")
     session.run("mypy", *args)
+
+
+@nox.session(python=["3.6", "3.7", "3.8"])
+def pytype(session: Session) -> None:
+    """Check types with pytype."""
+    args = session.posargs or ["--disable=import-error", *locations]
+    install_constrained_version(session, "pytype")
+    session.run("pytype", *args)
