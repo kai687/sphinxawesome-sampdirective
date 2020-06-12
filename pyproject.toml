@@ -35,9 +35,9 @@ source = ["src"]
 branch = true
 source = ["sphinxawesome.sampdirective"]
 
-[tool.covrage.report]
+[tool.coverage.report]
 show_missing = true
-fail_under = 100
+fail_under = 93
 
 [build-system]
 requires = ["poetry>=0.12"]
