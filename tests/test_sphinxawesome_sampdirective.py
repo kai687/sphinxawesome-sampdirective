@@ -1,4 +1,4 @@
-"""Unit Tests for the sphinxawesome.sampdirective module"""
+"""Unit Tests for the sphinxawesome.sampdirective module."""
 
 from pathlib import Path
 

@@ -1,1 +1,1 @@
-# empty config to test the sampdirective extension
+"""Sphinx configuration file for testing."""
