@@ -61,8 +61,11 @@ styling for the `samp` directive by default.
 ## Caveat
 
 This extension does not provide full syntax highlighting. It is currently not possible
-to have code blocks with both markup _and_ syntax highlighting. You have to choose between the following: 
+to have code blocks with both markup _and_ syntax highlighting. You have to choose
+between the following:
 
-- If you need to render markup, for example links, or bold or italic text, choose the `parsed-literal` directive. 
-- If you just want to highlight a placeholder variable, use the `samp` directive provided by this extension. 
+- If you need to render markup, for example links, or bold or italic text, choose the
+  `parsed-literal` directive.
+- If you just want to highlight a placeholder variable, use the `samp` directive
+  provided by this extension.
 - If you need full syntax highlighting, use the `code-block` directive.
