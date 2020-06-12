@@ -1,6 +1,7 @@
-"""
-This file defines a new directive `.. samp::`, which behaves like
-the `:samp:` role.
+"""Directive for highlighting placeholder variables.
+
+This module defines a new directive ``.. samp::``, which behaves like
+the builtin inline ``:samp:`` role, but for blocks.
 
 :copyright: Copyright 2020, Kai Welke.
 :license: MIT, see LICENSE for details
@@ -21,16 +22,16 @@ __version__ = "1.0.0"
 
 
 class SampDirective(SphinxDirective):
-    """
-    Directive for a literal block with emphasis.
-    That is, anything in '{}' will become emphasized nodes.
+    """Directive for literal block with empasis.
+
+    Anything in '{}' becomes an emphasized node and can be styled separately from the
+    surrounding literal text (e.g. typewriter *and* italic).
     """
 
     has_content = True
 
     def run(self) -> List[Node]:
         """Create a literal block and parse the children."""
-
         code = "\n".join(self.content)
         children = self.parse(code)
         node = nodes.literal_block(code, "", *children)
@@ -39,10 +40,7 @@ class SampDirective(SphinxDirective):
         return [node]
 
     def parse(self, content: str) -> List[Node]:
-        """
-        Parse a literal code block for {PATTERN}
-        """
-
+        """Parse a literal code block for {PATTERN}."""
         result = []
         stack = [""]
         parentheses = re.compile(r"({|})")
@@ -53,10 +51,10 @@ class SampDirective(SphinxDirective):
             result.append(nodes.inline(prompt, prompt, classes=["gp"]))
 
         for token in parentheses.split(content):
-            if token == "{":
+            if token == "{":  # noqa: S105
                 stack.append("{")
                 stack.append("")
-            elif token == "}":
+            elif token == "}":  # noqa: S105
                 if len(stack) == 3 and stack[1] == "{" and len(stack[2]) > 0:
                     if stack[0]:
                         result.append(nodes.Text(stack[0], stack[0]))
@@ -79,7 +77,6 @@ class SampDirective(SphinxDirective):
 
 def setup(app: "Sphinx") -> Dict[str, Any]:
     """Register the directive."""
-
     app.add_directive("samp", SampDirective)
 
     return {
