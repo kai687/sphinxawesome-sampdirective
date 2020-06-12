@@ -6,7 +6,7 @@ from typing import Any
 import nox
 from nox.sessions import Session
 
-nox.options.sessions = ["tests", "lint"]
+nox.options.sessions = ["tests", "lint", "mypy"]
 locations = ["src", "tests", "noxfile.py"]
 
 
@@ -59,3 +59,11 @@ def lint(session: Session) -> None:
         "flake8-import-order",
     )
     session.run("flake8", *args)
+
+
+@nox.session(python=["3.6", "3.7", "3.8"])
+def mypy(session: Session) -> None:
+    """Check types with mypy."""
+    args = session.posargs or locations
+    install_constrained_version(session, "mypy")
+    session.run("mypy", *args)
