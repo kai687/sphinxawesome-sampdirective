@@ -8,6 +8,7 @@ from nox.sessions import Session
 
 nox.options.sessions = ["tests", "lint", "mypy", "pytype"]
 locations = ["src", "tests", "noxfile.py"]
+python_versions = ["3.6", "3.7", "3.8"]
 
 
 def install_constrained_version(session: Session, *args: str, **kwargs: Any) -> None:
@@ -25,7 +26,7 @@ def install_constrained_version(session: Session, *args: str, **kwargs: Any) -> 
         session.install(f"--constraint={requirements.name}", *args, **kwargs)
 
 
-@nox.session(python=["3.6", "3.7", "3.8"])
+@nox.session(python=python_versions)
 @nox.parametrize("sphinx", ["2.*", "3.*"])
 def tests(session: Session, sphinx: str) -> None:
     """Run unit tests."""
@@ -44,7 +45,7 @@ def tests(session: Session, sphinx: str) -> None:
     )
 
 
-@nox.session(python=["3.6", "3.7", "3.8"])
+@nox.session(python=python_versions)
 def lint(session: Session) -> None:
     """Lint with Flake8."""
     args = session.posargs or locations
@@ -61,7 +62,7 @@ def lint(session: Session) -> None:
     session.run("flake8", *args)
 
 
-@nox.session(python=["3.6", "3.7", "3.8"])
+@nox.session(python=python_versions)
 def mypy(session: Session) -> None:
     """Check types with mypy."""
     args = session.posargs or locations
@@ -69,9 +70,18 @@ def mypy(session: Session) -> None:
     session.run("mypy", *args)
 
 
-@nox.session(python=["3.6", "3.7", "3.8"])
+@nox.session(python=python_versions)
 def pytype(session: Session) -> None:
     """Check types with pytype."""
     args = session.posargs or ["--disable=import-error", *locations]
     install_constrained_version(session, "pytype")
     session.run("pytype", *args)
+
+
+@nox.session(python=python_versions)
+def typeguard(session: Session) -> None:
+    """Check types at runtime with typeguard."""
+    package = "sphinxawesome.sampdirective"
+    session.run("poetry", "install", "--no-dev", external=True)
+    install_constrained_version(session, "pytest", "typeguard")
+    session.run("pytest", f"--typeguard-packages={package}", *session.posargs)
