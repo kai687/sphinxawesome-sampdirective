@@ -51,10 +51,10 @@ class SampDirective(SphinxDirective):
             result.append(nodes.inline(prompt, prompt, classes=["gp"]))
 
         for token in parentheses.split(content):
-            if token == "{":
+            if token == "{":  # noqa: S105
                 stack.append("{")
                 stack.append("")
-            elif token == "}":
+            elif token == "}":  # noqa: S105
                 if len(stack) == 3 and stack[1] == "{" and len(stack[2]) > 0:
                     if stack[0]:
                         result.append(nodes.Text(stack[0], stack[0]))
