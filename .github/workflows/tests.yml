@@ -25,4 +25,4 @@ jobs:
           pip install --constraint=.github/workflows/constraints.txt poetry nox
       - name: Run unit tests with nox
         run: |
-          nox --sessions "test-${{ matrix.python-version }}(sphinx='${{ matrix.sphinx-version }}')"
+          nox --sessions "tests-${{ matrix.python-version }}(sphinx='${{ matrix.sphinx-version }}')"
