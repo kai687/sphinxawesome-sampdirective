@@ -1,8 +1,10 @@
 """Unit Tests for the sphinxawesome.sampdirective module."""
 
+from io import StringIO
 from pathlib import Path
 
 import pytest
+from sphinx.application import Sphinx
 from sphinx.testing.util import etree_parse
 from sphinxawesome.sampdirective import __version__
 
@@ -22,7 +24,9 @@ def test_rootdir_fixture(rootdir: Path) -> None:
 
 @pytest.mark.filterwarnings("ignore::DeprecationWarning")
 @pytest.mark.sphinx("xml")
-def test_returns_warning_without_extension(app, status, warning):
+def test_returns_warning_without_extension(
+    app: Sphinx, status: StringIO, warning: StringIO
+) -> None:
     """It returns a warning if the extension is not added to the config."""
     app.builder.build_all()
 
@@ -36,7 +40,9 @@ def test_returns_warning_without_extension(app, status, warning):
 @pytest.mark.sphinx(
     "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
 )
-def test_finds_samp_directives(app, status, warning):
+def test_finds_samp_directives(
+    app: Sphinx, status: StringIO, warning: StringIO
+) -> None:
     """It does not return a warning if the extension is enabled."""
     app.builder.build_all()
 
@@ -50,7 +56,7 @@ def test_finds_samp_directives(app, status, warning):
 @pytest.mark.sphinx(
     "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
 )
-def test_parses_samp_without_placeholder_correctly(app):
+def test_parses_samp_without_placeholder_correctly(app: Sphinx) -> None:
     """It parses samp directives without placeholder."""
     app.builder.build_all()
 
@@ -65,7 +71,7 @@ def test_parses_samp_without_placeholder_correctly(app):
 @pytest.mark.sphinx(
     "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
 )
-def test_parses_samp_with_placeholder_correctly(app):
+def test_parses_samp_with_placeholder_correctly(app: Sphinx) -> None:
     """It parses samp directives without placeholder."""
     app.builder.build_all()
 
@@ -81,7 +87,7 @@ def test_parses_samp_with_placeholder_correctly(app):
 @pytest.mark.sphinx(
     "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
 )
-def test_parses_samp_with_one_prompt(app):
+def test_parses_samp_with_one_prompt(app: Sphinx) -> None:
     """It parses samp directives with a single prompt."""
     app.builder.build_all()
 
@@ -98,7 +104,7 @@ def test_parses_samp_with_one_prompt(app):
 @pytest.mark.sphinx(
     "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
 )
-def test_parses_samp_with_two_prompts(app):
+def test_parses_samp_with_two_prompts(app: Sphinx) -> None:
     """It parses samp directives with multiple prompts."""
     app.builder.build_all()
 
@@ -116,7 +122,7 @@ def test_parses_samp_with_two_prompts(app):
 @pytest.mark.sphinx(
     "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
 )
-def test_parses_samp_directive_with_prompt_char_in_variable(app):
+def test_parses_samp_directive_with_prompt_char_in_variable(app: Sphinx) -> None:
     """It parses samp directives with a prompt character at the beginning in a variable."""
     app.builder.build_all()
 

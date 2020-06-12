@@ -23,4 +23,4 @@ jobs:
         run: |
           pip install --constraint=.github/workflows/constraints.txt poetry nox
       - name: Run nox workflow
-        run: nox -p ${{ matrix.python-version }} -k "not tests"
+        run: nox -p ${{ matrix.python-version }} -k "not (tests or coverage)"
