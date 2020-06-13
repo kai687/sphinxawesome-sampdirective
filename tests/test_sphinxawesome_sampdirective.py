@@ -100,7 +100,6 @@ def test_parses_samp_with_one_prompt(app: Sphinx) -> None:
     assert test[0].get("classes") == "gp"
 
 
-@pytest.mark.xfail(reason="Currently a bug.")
 @pytest.mark.sphinx(
     "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
 )
@@ -118,7 +117,6 @@ def test_parses_samp_with_two_prompts(app: Sphinx) -> None:
     assert test[1].get("classes") == "gp"
 
 
-@pytest.mark.xfail(reason="Currently a bug.")
 @pytest.mark.sphinx(
     "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
 )
@@ -130,5 +128,5 @@ def test_parses_samp_directive_with_prompt_char_in_variable(app: Sphinx) -> None
     blocks = et.findall("./section/literal_block")
 
     #  fourth block should not have "gp", because it's not a prompt
-    test = blocks[3].findall("./inline")
+    test = blocks[4].findall("./inline")
     assert len(test) == 0

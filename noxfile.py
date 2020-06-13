@@ -109,3 +109,11 @@ def coverage(session: Session) -> None:
     install_constrained_version(session, "coverage[toml]", "codecov")
     session.run("coverage", "xml", "--fail-under=0")
     session.run("codecov", *session.posargs)
+
+
+@nox.session(python="3.8")
+def black(session: Session) -> None:
+    """Format code with Black."""
+    args = session.posargs or locations
+    install_constrained_version(session, "black")
+    session.run("black", *args)
