@@ -40,7 +40,7 @@ def test_returns_warning_without_extension(
 @pytest.mark.sphinx(
     "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
 )
-def test_finds_samp_directives(
+def test_does_not_return_warning_with_extension(
     app: Sphinx, status: StringIO, warning: StringIO
 ) -> None:
     """It does not return a warning if the extension is enabled."""
@@ -48,9 +48,17 @@ def test_finds_samp_directives(
 
     assert "" in warning.getvalue()
 
+
+@pytest.mark.sphinx(
+    "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
+)
+def test_finds_samp_directives(app: Sphinx) -> None:
+    """It finds all samp directives."""
+    app.builder.build_all()
+
     et = etree_parse(app.outdir / "index.xml")
     blocks = et.findall("./section/literal_block")
-    assert len(blocks) == 5
+    assert len(blocks) == 7
 
 
 @pytest.mark.sphinx(
@@ -100,7 +108,6 @@ def test_parses_samp_with_one_prompt(app: Sphinx) -> None:
     assert test[0].get("classes") == "gp"
 
 
-@pytest.mark.xfail(reason="Currently a bug.")
 @pytest.mark.sphinx(
     "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
 )
@@ -118,7 +125,6 @@ def test_parses_samp_with_two_prompts(app: Sphinx) -> None:
     assert test[1].get("classes") == "gp"
 
 
-@pytest.mark.xfail(reason="Currently a bug.")
 @pytest.mark.sphinx(
     "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
 )
@@ -130,5 +136,26 @@ def test_parses_samp_directive_with_prompt_char_in_variable(app: Sphinx) -> None
     blocks = et.findall("./section/literal_block")
 
     #  fourth block should not have "gp", because it's not a prompt
-    test = blocks[3].findall("./inline")
+    test = blocks[4].findall("./inline")
     assert len(test) == 0
+
+
+@pytest.mark.sphinx(
+    "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
+)
+def test_recognizes_alternate_prompt_characters(app: Sphinx) -> None:
+    """It parses `#` and `~ ` as a prompt characters."""
+    app.builder.build_all()
+
+    et = etree_parse(app.outdir / "index.xml")
+    blocks = et.findall("./section/literal_block")
+
+    #  fifth block has a "gp" class for the '#' prompt character
+    test = blocks[5].findall("./inline")
+    assert len(test) == 1
+    assert test[0].get("classes") == "gp"
+
+    # sixth block has a "gp" class for the '~' prompt character
+    test = blocks[6].findall("./inline")
+    assert len(test) == 1
+    assert test[0].get("classes") == "gp"

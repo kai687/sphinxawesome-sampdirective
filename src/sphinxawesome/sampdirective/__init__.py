@@ -12,6 +12,9 @@ from typing import Any, Dict, List
 
 from docutils import nodes
 from docutils.nodes import Node
+import pygments
+from pygments.lexer import RegexLexer
+from pygments.token import Generic, Text  # noqa: F401
 from sphinx.application import Sphinx
 from sphinx.util import logging
 from sphinx.util.docutils import SphinxDirective
@@ -19,6 +22,18 @@ from sphinx.util.docutils import SphinxDirective
 logger = logging.getLogger(__name__)
 
 __version__ = "1.0.0"
+
+
+class SampLexer(RegexLexer):
+    """Lexer for the ``samp`` directive."""
+
+    tokens = {
+        "root": [
+            (r"^[$#~]\s", Generic.Prompt),  # prompt characters
+            (r"{.*?}", Generic.Emph),  # placeholder variables
+            (r"\S*\s", Generic.Text),  # the rest
+        ]
+    }
 
 
 class SampDirective(SphinxDirective):
@@ -40,37 +55,23 @@ class SampDirective(SphinxDirective):
         return [node]
 
     def parse(self, content: str) -> List[Node]:
-        """Parse a literal code block for {PATTERN}."""
+        """Parse a literal code block.
+
+        Use an instance of SampLexer() to lex the literal block
+        into a list of tokens and parse it into docutils nodes.
+        """
         result = []
-        stack = [""]
-        parentheses = re.compile(r"({|})")
+        braces = re.compile(r"[{}]")
 
-        # cheat syntax highlighting for the prompt
-        if content[0] in ["$", "#", "~"]:
-            prompt, content = content[0], content[1:]
-            result.append(nodes.inline(prompt, prompt, classes=["gp"]))
-
-        for token in parentheses.split(content):
-            if token == "{":  # noqa: S105
-                stack.append("{")
-                stack.append("")
-            elif token == "}":  # noqa: S105
-                if len(stack) == 3 and stack[1] == "{" and len(stack[2]) > 0:
-                    if stack[0]:
-                        result.append(nodes.Text(stack[0], stack[0]))
-                        result.append(
-                            nodes.emphasis(stack[2], stack[2], classes=["var"])
-                        )
-                    stack = [""]
-                else:
-                    stack.append("")
-                    stack = ["".join(stack)]
+        for token_type, token in pygments.lex(content, SampLexer()):
+            if token_type == Generic.Prompt:
+                result.append(nodes.inline(token, token, classes=["gp"]))
+            elif token_type == Generic.Emph:
+                # strip the braces from the token before converting
+                token = braces.sub("", token)
+                result.append(nodes.emphasis(token, token, classes=["var"]))
             else:
-                stack[-1] += token
-
-        if "".join(stack):
-            text = "".join(stack)
-            result.append(nodes.Text(text, text))
+                result.append(nodes.Text(token, token))
 
         return result
 
