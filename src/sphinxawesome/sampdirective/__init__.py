@@ -7,6 +7,11 @@ the builtin inline ``:samp:`` role, but for blocks.
 :license: MIT, see LICENSE for details
 """
 
+try:
+    from importlib.metadata import version, PackageNotFoundError  # type: ignore
+except ImportError:  # pragma: nocover
+    from importlib_metadata import version, PackageNotFoundError  # type: ignore
+
 import re
 from typing import Any, Dict, List
 
@@ -21,7 +26,10 @@ from sphinx.util.docutils import SphinxDirective
 
 logger = logging.getLogger(__name__)
 
-__version__ = "1.0.0"
+try:
+    __version__ = version(__name__.replace(".", "-"))
+except PackageNotFoundError:  # pragma: nocover
+    __version__ = "unknown"
 
 
 class SampLexer(RegexLexer):
