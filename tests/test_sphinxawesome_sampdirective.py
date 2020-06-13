@@ -50,7 +50,7 @@ def test_finds_samp_directives(
 
     et = etree_parse(app.outdir / "index.xml")
     blocks = et.findall("./section/literal_block")
-    assert len(blocks) == 5
+    assert len(blocks) == 7
 
 
 @pytest.mark.sphinx(
@@ -130,3 +130,24 @@ def test_parses_samp_directive_with_prompt_char_in_variable(app: Sphinx) -> None
     #  fourth block should not have "gp", because it's not a prompt
     test = blocks[4].findall("./inline")
     assert len(test) == 0
+
+
+@pytest.mark.sphinx(
+    "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
+)
+def test_recognizes_alternate_prompt_characters(app: Sphinx) -> None:
+    """It parses `#` and `~ ` as a prompt characters."""
+    app.builder.build_all()
+
+    et = etree_parse(app.outdir / "index.xml")
+    blocks = et.findall("./section/literal_block")
+
+    #  fifth block has a "gp" class for the '#' prompt character
+    test = blocks[5].findall("./inline")
+    assert len(test) == 1
+    assert test[0].get("classes") == "gp"
+
+    # sixth block has a "gp" class for the '~' prompt character
+    test = blocks[6].findall("./inline")
+    assert len(test) == 1
+    assert test[0].get("classes") == "gp"

@@ -23,3 +23,11 @@ Just a normal paragraph.
 .. samp::
 
    $HOME should not be highlighted
+
+.. samp::
+
+   # alternate prompt character
+
+.. samp::
+
+   ~ alternate prompt character
