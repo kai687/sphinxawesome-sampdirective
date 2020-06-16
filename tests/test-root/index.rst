@@ -31,3 +31,11 @@ Just a normal paragraph.
 .. samp::
 
    ~ alternate prompt character
+
+.. samp::
+
+   $ parse /{COMPLICATED}/
+
+.. samp::
+
+   $ parse {PLACEHOLDER_WITH_UNDERSCORE}
