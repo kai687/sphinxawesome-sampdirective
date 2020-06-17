@@ -39,3 +39,7 @@ Just a normal paragraph.
 .. samp::
 
    $ parse {PLACEHOLDER_WITH_UNDERSCORE}
+
+.. samp::
+
+   $ parse {THIS} then {THAT}

@@ -12,7 +12,6 @@ try:
 except ImportError:  # pragma: nocover
     from importlib_metadata import version, PackageNotFoundError  # type: ignore
 
-import re
 from typing import Any, Dict, List
 
 from docutils import nodes
@@ -33,14 +32,18 @@ except PackageNotFoundError:  # pragma: nocover
 
 
 class SampLexer(RegexLexer):
-    """Lexer for the ``samp`` directive."""
+    """Improved Lexer with two states."""
 
     tokens = {
         "root": [
-            (r"^[$#~]\s", Generic.Prompt),  # prompt characters
-            (r"{.*?}", Generic.Emph),  # placeholder variables
-            (r"\S*\s", Generic.Text),  # the rest
-        ]
+            (r"^[$#~]\s", Generic.Prompt),  # prompt characters at the beginning
+            (r"[^{$#~]+", Text),  # everything except the `{` is Text
+            (r"{", Generic.Punctuation, "samp"),  # `{` enter samp state
+        ],
+        "samp": [
+            (r"[^}]+", Generic.Emph),  # everything except `}` is Emph inside
+            (r"}", Generic.Punctuation, "#pop"),  # match closing `}`, exit samp state
+        ],
     }
 
 
@@ -69,15 +72,16 @@ class SampDirective(SphinxDirective):
         into a list of tokens and parse it into docutils nodes.
         """
         result = []
-        braces = re.compile(r"[{}]")
 
         for token_type, token in pygments.lex(content, SampLexer()):
+            logger.debug(f"TOK: {token} of {token_type}")
             if token_type == Generic.Prompt:
                 result.append(nodes.inline(token, token, classes=["gp"]))
             elif token_type == Generic.Emph:
-                # strip the braces from the token before converting
-                token = braces.sub("", token)
                 result.append(nodes.emphasis(token, token, classes=["var"]))
+            elif token_type == Generic.Punctuation:
+                # don't carry over the curly braces
+                continue
             else:
                 result.append(nodes.Text(token, token))
 

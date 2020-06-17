@@ -2,6 +2,7 @@
 
 from io import StringIO
 from pathlib import Path
+import re
 
 import pytest
 from sphinx.application import Sphinx
@@ -59,7 +60,7 @@ def test_finds_samp_directives(app: Sphinx) -> None:
 
     et = etree_parse(app.outdir / "index.xml")
     blocks = et.findall("./section/literal_block")
-    assert len(blocks) == 9
+    assert len(blocks) == 10
 
 
 @pytest.mark.sphinx(
@@ -188,3 +189,32 @@ def test_parses_placeholder_with_underscores(app: Sphinx) -> None:
     test = blocks[8].findall("./emphasis")
     assert len(test) == 1
     assert test[0].get("classes") == "var"
+
+
+@pytest.mark.sphinx(
+    "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
+)
+def test_parses_multiple_placeholders(app: Sphinx) -> None:
+    """It parses a {PLACEHOLDER1} {PLACEHOLDER2} pattern."""
+    app.builder.build_all()
+
+    et = etree_parse(app.outdir / "index.xml")
+    blocks = et.findall("./section/literal_block")
+    test = blocks[9].findall("./emphasis")
+    assert len(test) == 2
+    assert test[0].get("classes") == "var"
+    assert test[1].get("classes") == "var"
+
+
+@pytest.mark.sphinx(
+    "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
+)
+def test_no_curly_braces(app: Sphinx) -> None:
+    """It does not contain any curly braces."""
+    app.builder.build_all()
+
+    curly = re.compile(r"[{}]", re.M)
+
+    with open(app.outdir / "index.xml") as result:
+        match = curly.search(result.read())
+        assert match is None
