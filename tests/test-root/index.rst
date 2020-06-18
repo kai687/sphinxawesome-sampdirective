@@ -5,11 +5,11 @@ Just a normal paragraph.
 
 .. samp::
 
-   This is not a directive
+   Nothing to be highlighted here.
 
 .. samp::
 
-   replace {THIS}
+   emphasize {THIS}
 
 .. samp::
 
@@ -43,3 +43,15 @@ Just a normal paragraph.
 .. samp::
 
    $ parse {THIS} then {THAT}
+
+.. samp::
+
+   $ empty curly {} parsed as text
+
+.. samp::
+
+   $ unbalanced { parsed as text
+
+.. samp::
+
+   $ escaped \{DO NOT HIGHLIGHT\} is text

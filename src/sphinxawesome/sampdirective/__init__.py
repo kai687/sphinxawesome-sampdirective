@@ -17,7 +17,7 @@ from typing import Any, Dict, List
 from docutils import nodes
 from docutils.nodes import Node
 import pygments
-from pygments.lexer import RegexLexer
+from pygments.lexer import bygroups, RegexLexer
 from pygments.token import Generic, Text  # noqa: F401
 from sphinx.application import Sphinx
 from sphinx.util import logging
@@ -32,18 +32,33 @@ except PackageNotFoundError:  # pragma: nocover
 
 
 class SampLexer(RegexLexer):
-    """Improved Lexer with two states."""
+    """Lexer for parsing the code blocks.
+
+    The lexer starts at the beginning of the string and tries to match the first
+    pattern. If that does not match, try the second pattern, and so on. If the current
+    character can't be matched to anything, return it as an error token.
+
+    1) Check if the first character is a prompt character (followed by a whitespace)
+    2) Check, if we have escaped curly braces. Everything is regular text.
+    3) Check, if we have a ``{PLACEHOLDER}`` pattern.
+    4) Check if it's text. Match all characters that are not the opening brace
+       or newline.
+    5) The opening curly brace and the newline character on their own are text too.
+       (otherwise this would return an error token and prompts on multiple lines would
+       not be parsed correctly.
+    """
 
     tokens = {
         "root": [
-            (r"^[$#~]\s", Generic.Prompt),  # prompt characters at the beginning
-            (r"[^{$#~]+", Text),  # everything except the `{` is Text
-            (r"{", Generic.Punctuation, "samp"),  # `{` enter samp state
-        ],
-        "samp": [
-            (r"[^}]+", Generic.Emph),  # everything except `}` is Emph inside
-            (r"}", Generic.Punctuation, "#pop"),  # match closing `}`, exit samp state
-        ],
+            (r"^[$#~]\s", Generic.Prompt),
+            (r"\\{.+?\\?}?", Text),
+            (
+                r"({)(.+?)(})",
+                bygroups(Generic.Punctuation, Generic.Emph, Generic.Punctuation),
+            ),
+            (r"[^{\n]+", Text),
+            (r"[{\n]", Text),
+        ]
     }
 
 

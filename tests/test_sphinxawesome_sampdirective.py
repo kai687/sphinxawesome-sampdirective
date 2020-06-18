@@ -60,7 +60,7 @@ def test_finds_samp_directives(app: Sphinx) -> None:
 
     et = etree_parse(app.outdir / "index.xml")
     blocks = et.findall("./section/literal_block")
-    assert len(blocks) == 10
+    assert len(blocks) == 13
 
 
 @pytest.mark.sphinx(
@@ -172,6 +172,8 @@ def test_parses_placeholder_with_slashes(app: Sphinx) -> None:
 
     et = etree_parse(app.outdir / "index.xml")
     blocks = et.findall("./section/literal_block")
+
+    # seventh block has a {PLACEHOLDER} pattern that's surrounded by slashes.
     test = blocks[7].findall("./emphasis")
     assert len(test) == 1
     assert test[0].get("classes") == "var"
@@ -186,6 +188,8 @@ def test_parses_placeholder_with_underscores(app: Sphinx) -> None:
 
     et = etree_parse(app.outdir / "index.xml")
     blocks = et.findall("./section/literal_block")
+
+    # eigth block has a placeholder pattern with underscores in it
     test = blocks[8].findall("./emphasis")
     assert len(test) == 1
     assert test[0].get("classes") == "var"
@@ -200,6 +204,8 @@ def test_parses_multiple_placeholders(app: Sphinx) -> None:
 
     et = etree_parse(app.outdir / "index.xml")
     blocks = et.findall("./section/literal_block")
+
+    # nineth block has 2 placeholder patterns on the same line
     test = blocks[9].findall("./emphasis")
     assert len(test) == 2
     assert test[0].get("classes") == "var"
@@ -209,12 +215,52 @@ def test_parses_multiple_placeholders(app: Sphinx) -> None:
 @pytest.mark.sphinx(
     "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
 )
-def test_no_curly_braces(app: Sphinx) -> None:
-    """It does not contain any curly braces."""
+def test_empty_braces_are_text(app: Sphinx) -> None:
+    """It parses an empty set of {} as text."""
     app.builder.build_all()
 
-    curly = re.compile(r"[{}]", re.M)
+    et = etree_parse(app.outdir / "index.xml")
+    blocks = et.findall("./section/literal_block")
 
-    with open(app.outdir / "index.xml") as result:
-        match = curly.search(result.read())
-        assert match is None
+    # tenth block has an empty set of {}
+    test = blocks[10].findall("./emphasis")
+    # should not lead to emphasis ...
+    assert len(test) == 0
+
+    with open(app.outdir / "index.xml") as raw_text:
+        chars = raw_text.read().strip()
+        assert re.search(r"{}", chars)
+
+
+@pytest.mark.sphinx(
+    "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
+)
+def test_single_curly_is_text(app: Sphinx) -> None:
+    """It parses a single { as text."""
+    app.builder.build_all()
+
+    et = etree_parse(app.outdir / "index.xml")
+    blocks = et.findall("./section/literal_block")
+
+    # eleventh block has a single `{`
+    test = blocks[11].findall("./emphasis")
+    assert len(test) == 0
+
+    with open(app.outdir / "index.xml") as raw_text:
+        chars = raw_text.read().strip()
+        assert re.search(r"{", chars)
+
+
+@pytest.mark.sphinx(
+    "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
+)
+def test_escaped_curly_braces_are_text(app: Sphinx) -> None:
+    r"""It parses an escaped pattern \{PATTERN\} as text."""
+    app.builder.build_all()
+
+    et = etree_parse(app.outdir / "index.xml")
+    blocks = et.findall("./section/literal_block")
+
+    # eleventh block has a single `{`
+    test = blocks[11].findall("./emphasis")
+    assert len(test) == 0
