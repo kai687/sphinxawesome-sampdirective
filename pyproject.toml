@@ -27,7 +27,7 @@ importlib_metadata = {version = "^1.6.1", python = "<3.8"}
 pytest = "^6.0"
 pytest-cov = "^2.9"
 pre-commit = "^2.6.0"
-coverage = {extras = ["toml"], version = "^5.1"}
+coverage = {extras = ["toml"], version = "^5.2"}
 flake8 = "^3.8.3"
 flake8-annotations = "^2.3.0"
 flake8-black = "^0.2.0"
