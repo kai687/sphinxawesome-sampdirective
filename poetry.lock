@@ -69,18 +69,24 @@ description = "The uncompromising code formatter."
 name = "black"
 optional = false
 python-versions = ">=3.6"
-version = "19.10b0"
+version = "20.8b1"
 
 [package.dependencies]
 appdirs = "*"
-attrs = ">=18.1.0"
-click = ">=6.5"
+click = ">=7.1.2"
+mypy-extensions = ">=0.4.3"
 pathspec = ">=0.6,<1"
-regex = "*"
-toml = ">=0.9.4"
+regex = ">=2020.1.8"
+toml = ">=0.10.1"
 typed-ast = ">=1.4.0"
+typing-extensions = ">=3.7.4"
+
+[package.dependencies.dataclasses]
+python = "<3.7"
+version = ">=0.6"
 
 [package.extras]
+colorama = ["colorama (>=0.4.3)"]
 d = ["aiohttp (>=3.3.2)", "aiohttp-cors"]
 
 [[package]]
@@ -139,6 +145,15 @@ version = "*"
 
 [package.extras]
 toml = ["toml"]
+
+[[package]]
+category = "dev"
+description = "A backport of the dataclasses module for Python 3.6"
+marker = "python_version < \"3.7\""
+name = "dataclasses"
+optional = false
+python-versions = "*"
+version = "0.6"
 
 [[package]]
 category = "dev"
@@ -669,7 +684,7 @@ marker = "python_version == \"3.6\" or python_version == \"3.7\" or python_versi
 name = "pytype"
 optional = false
 python-versions = "<3.9,>=3.5"
-version = "2020.8.17"
+version = "2020.8.28"
 
 [package.dependencies]
 attrs = "*"
@@ -997,8 +1012,8 @@ bandit = [
     {file = "bandit-1.6.2.tar.gz", hash = "sha256:41e75315853507aa145d62a78a2a6c5e3240fe14ee7c601459d0df9418196065"},
 ]
 black = [
-    {file = "black-19.10b0-py36-none-any.whl", hash = "sha256:1b30e59be925fafc1ee4565e5e08abef6b03fe455102883820fe5ee2e4734e0b"},
-    {file = "black-19.10b0.tar.gz", hash = "sha256:c2edb73a08e9e0e6f65a0e6af18b059b8b1cdd5bef997d7a0b181df93dc81539"},
+    {file = "black-20.8b1-py3-none-any.whl", hash = "sha256:70b62ef1527c950db59062cda342ea224d772abdf6adc58b86a45421bab20a6b"},
+    {file = "black-20.8b1.tar.gz", hash = "sha256:1c02557aa099101b9d21496f8a914e9ed2222ef70336404eeeac8edba836fbea"},
 ]
 certifi = [
     {file = "certifi-2020.6.20-py2.py3-none-any.whl", hash = "sha256:8fc0819f1f30ba15bdb34cceffb9ef04d99f420f68eb75d901e9560b8749fc41"},
@@ -1055,6 +1070,10 @@ coverage = [
     {file = "coverage-5.2.1-cp39-cp39-win32.whl", hash = "sha256:9e536783a5acee79a9b308be97d3952b662748c4037b6a24cbb339dc7ed8eb89"},
     {file = "coverage-5.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:b8f58c7db64d8f27078cbf2a4391af6aa4e4767cc08b37555c4ae064b8558d9b"},
     {file = "coverage-5.2.1.tar.gz", hash = "sha256:a34cb28e0747ea15e82d13e14de606747e9e484fb28d63c999483f5d5188e89b"},
+]
+dataclasses = [
+    {file = "dataclasses-0.6-py3-none-any.whl", hash = "sha256:454a69d788c7fda44efd71e259be79577822f5e3f53f029a22d08004e951dc9f"},
+    {file = "dataclasses-0.6.tar.gz", hash = "sha256:6988bd2b895eef432d562370bb707d540f32f7360ab13da45340101bc2307d84"},
 ]
 decorator = [
     {file = "decorator-4.4.2-py2.py3-none-any.whl", hash = "sha256:41fa54c2a0cc4ba648be4fd43cff00aedf5b9465c9bf18d64325bc225f08f760"},
@@ -1282,13 +1301,13 @@ pytest-cov = [
     {file = "pytest_cov-2.10.1-py2.py3-none-any.whl", hash = "sha256:45ec2d5182f89a81fc3eb29e3d1ed3113b9e9a873bcddb2a71faaab066110191"},
 ]
 pytype = [
-    {file = "pytype-2020.8.17-cp35-cp35m-macosx_10_14_x86_64.whl", hash = "sha256:294b986f9335368c70af08204ce06eff8abfda6b413b9aaa8f96996e24ca91ed"},
-    {file = "pytype-2020.8.17-cp35-cp35m-manylinux2014_x86_64.whl", hash = "sha256:81925b2068ca2fc001db02019bb8ee0c5f045e5ee6b85228e2951c8e4b003399"},
-    {file = "pytype-2020.8.17-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:731441814894717569651516ecb88ae41301a1fa11977a08db44e4ddae4a8027"},
-    {file = "pytype-2020.8.17-cp36-cp36m-manylinux2014_x86_64.whl", hash = "sha256:4dba8ad5f936790635e648f6aaf92538147a04b6f4342cb4e4280a39adc2f966"},
-    {file = "pytype-2020.8.17-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:7b7233cea2366fd5a2d7e423cd6b6aad6f2ac2351c9e5e1fdb6cc27efe29784e"},
-    {file = "pytype-2020.8.17-cp37-cp37m-manylinux2014_x86_64.whl", hash = "sha256:2dcd62a910fed9d97b19eeee0ce9dce46cea8e32fc3517f50de3cf0699d05629"},
-    {file = "pytype-2020.8.17.tar.gz", hash = "sha256:8c6f91da370194f48844ef1e7c9427e95150879fce2017407f8c415bc333f139"},
+    {file = "pytype-2020.8.28-cp35-cp35m-macosx_10_14_x86_64.whl", hash = "sha256:0c12e077ad4c4a3970bf83f61bf2cb6033fc91e16fef6385ae4799dfaf4d537c"},
+    {file = "pytype-2020.8.28-cp35-cp35m-manylinux2014_x86_64.whl", hash = "sha256:3184ffbd3196b7cd60c89866dc497ff888f546e523df50f06f8257e528580ee0"},
+    {file = "pytype-2020.8.28-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:dda3c464a31530f3b485433fe55ec43fb36ef8e0a6920174d8c7a5f286f036d6"},
+    {file = "pytype-2020.8.28-cp36-cp36m-manylinux2014_x86_64.whl", hash = "sha256:885f0639dcebe37d7edd60a7e520fcdd14d20320586a8151120ad0c97a5fbf4a"},
+    {file = "pytype-2020.8.28-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:aec0bc7a25297c15d2ecb3d2ee095130eba38ea108949b28a0490a91b6f34486"},
+    {file = "pytype-2020.8.28-cp37-cp37m-manylinux2014_x86_64.whl", hash = "sha256:894a2367eedcbbd1cb9cc875279ba3325c8c28bc0c8f00edc02378fa7b86318b"},
+    {file = "pytype-2020.8.28.tar.gz", hash = "sha256:8ac53aef4453631dfb81980a7b7313d2835f602953f4a92aec1f97b5be6b7e10"},
 ]
 pytz = [
     {file = "pytz-2020.1-py2.py3-none-any.whl", hash = "sha256:a494d53b6d39c3c6e44c3bec237336e14305e4f29bbf800b599253057fbb79ed"},
