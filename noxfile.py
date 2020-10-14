@@ -8,7 +8,7 @@ from nox.sessions import Session
 
 nox.options.sessions = ["tests", "lint", "mypy", "pytype", "safety"]
 locations = ["src", "tests", "noxfile.py"]
-python_versions = ["3.6", "3.7", "3.8"]
+python_versions = ["3.6", "3.7", "3.8", "3.9"]
 
 
 def install_constrained_version(session: Session, *args: str, **kwargs: Any) -> None:
@@ -70,7 +70,7 @@ def mypy(session: Session) -> None:
     session.run("mypy", *args)
 
 
-@nox.session(python=python_versions)
+@nox.session(python=[v for v in python_versions if float(v) < 3.9])
 def pytype(session: Session) -> None:
     """Check types with pytype."""
     args = session.posargs or ["--disable=import-error", *locations]
