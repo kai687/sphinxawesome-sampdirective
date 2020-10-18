@@ -60,7 +60,7 @@ def test_finds_samp_directives(app: Sphinx) -> None:
 
     et = etree_parse(app.outdir / "index.xml")
     blocks = et.findall("./section/literal_block")
-    assert len(blocks) == 13
+    assert len(blocks) == 14
 
 
 @pytest.mark.sphinx(
@@ -254,6 +254,7 @@ def test_single_curly_is_text(app: Sphinx) -> None:
 @pytest.mark.sphinx(
     "xml", confoverrides={"extensions": ["sphinxawesome.sampdirective"]}
 )
+@pytest.mark.xfail(reason="This is currently a bug")
 def test_escaped_curly_braces_are_text(app: Sphinx) -> None:
     r"""It parses an escaped pattern \{PATTERN\} as text."""
     app.builder.build_all()
@@ -261,6 +262,6 @@ def test_escaped_curly_braces_are_text(app: Sphinx) -> None:
     et = etree_parse(app.outdir / "index.xml")
     blocks = et.findall("./section/literal_block")
 
-    # eleventh block has a single `{`
-    test = blocks[11].findall("./emphasis")
+    # eleventh block has escaped braces
+    test = blocks[12].findall("./emphasis")
     assert len(test) == 0

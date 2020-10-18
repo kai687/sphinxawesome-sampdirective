@@ -55,3 +55,7 @@ Just a normal paragraph.
 .. samp::
 
    $ escaped \{DO NOT HIGHLIGHT\} is text
+
+.. samp::
+
+   this = { "option": "{WILL NOT WORK}" }
