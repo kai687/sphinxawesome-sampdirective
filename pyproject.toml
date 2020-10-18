@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sphinxawesome-sampdirective"
-version = "1.0.3"
+version = "1.0.4"
 description = "A Sphinx directive for literal blocks with emphasis"
 license = "MIT"
 readme = "README.md"

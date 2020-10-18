@@ -12,7 +12,7 @@ from sphinxawesome.sampdirective import __version__
 
 def test_returns_version() -> None:
     """It returns the correct version."""
-    assert __version__ == "1.0.3"
+    assert __version__ == "1.0.4"
 
 
 def test_rootdir_fixture(rootdir: Path) -> None:
@@ -59,3 +59,9 @@ def test_finds_samp_directives(app: Sphinx) -> None:
     et = etree_parse(app.outdir / "index.xml")
     blocks = et.findall("./section/literal_block")
     assert len(blocks) == 1
+    prompts = blocks[0].findall("inline")
+    assert len(prompts) == 2
+    assert prompts[0].get("classes") == "gp"
+    emph = blocks[0].findall("emphasis")
+    assert len(emph) == 1
+    assert emph[0].get("classes") == "var"
