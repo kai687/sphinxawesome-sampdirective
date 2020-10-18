@@ -12,6 +12,7 @@ try:
 except ImportError:  # pragma: nocover
     from importlib_metadata import version, PackageNotFoundError  # type: ignore
 
+import re
 from typing import Any, Dict, List
 
 from docutils import nodes
@@ -51,13 +52,14 @@ class SampLexer(RegexLexer):
     tokens = {
         "root": [
             (r"^[$#~]\s", Generic.Prompt),
-            (r"\\{.+?\\?}?", Text),
+            (r"\\{", Text),
             (
                 r"({)(.+?)(})",
                 bygroups(Generic.Punctuation, Generic.Emph, Generic.Punctuation),
             ),
-            (r"[^{\n]+", Text),
-            (r"[{\n]", Text),
+            (r"\\}", Text),
+            (r"[^\\{\n]+", Text),
+            (r"[\\{\n]", Text),
         ]
     }
 
@@ -98,8 +100,9 @@ class SampDirective(SphinxDirective):
                 # don't carry over the curly braces
                 continue
             else:
+                # unescape remaining curly braces
+                token = re.sub(r"\\(?={|})", "", token)
                 result.append(nodes.Text(token, token))
-
         return result
 
 
