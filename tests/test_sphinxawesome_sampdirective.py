@@ -12,7 +12,7 @@ from sphinxawesome.sampdirective import __version__
 
 def test_returns_version() -> None:
     """It returns the correct version."""
-    assert __version__ == "1.0.4"
+    assert __version__ == "1.0.5"
 
 
 def test_rootdir_fixture(rootdir: Path) -> None:
