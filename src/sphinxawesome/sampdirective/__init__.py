@@ -35,13 +35,18 @@ except PackageNotFoundError:  # pragma: nocover
 
 @simplefilter
 def unescape(self, lexer: Lexer, stream: Iterator, options: Dict) -> Iterator:
-    """Unescape curly braces in the token stream."""
+    r"""Unescape curly braces in the token stream.
+
+    Escaped curly braces ``\{`` are turned into ``{``.
+    Unescaped curly braces ``{`` are turned into empty string.
+    """
     for ttype, token in stream:
         if ttype == Text:
             token = re.sub(r"\\(?={|})", "", token)
         if ttype == Generic.Punctuation:
             ttype = Text
-            token = ""
+            # bandit thinks ``token`` is a password
+            token = ""  # noqa: S105
         yield ttype, token
 
 
