@@ -13,12 +13,13 @@ except ImportError:  # pragma: nocover
     from importlib_metadata import version, PackageNotFoundError  # type: ignore
 
 import re
-from typing import Any, Dict, List
+from typing import Any, Dict, Iterator, List
 
 from docutils import nodes
 from docutils.nodes import Node
 import pygments
-from pygments.lexer import bygroups, RegexLexer
+from pygments.filter import simplefilter
+from pygments.lexer import bygroups, Lexer, RegexLexer
 from pygments.token import Generic, Text  # noqa: F401
 from sphinx.application import Sphinx
 from sphinx.util import logging
@@ -30,6 +31,18 @@ try:
     __version__ = version(__name__.replace(".", "-"))
 except PackageNotFoundError:  # pragma: nocover
     __version__ = "unknown"
+
+
+@simplefilter
+def unescape(self, lexer: Lexer, stream: Iterator, options: Dict) -> Iterator:
+    """Unescape curly braces in the token stream."""
+    for ttype, token in stream:
+        if ttype == Text:
+            token = re.sub(r"\\(?={|})", "", token)
+        if ttype == Generic.Punctuation:
+            ttype = Text
+            token = ""
+        yield ttype, token
 
 
 class SampLexer(RegexLexer):
@@ -90,18 +103,19 @@ class SampDirective(SphinxDirective):
         """
         result = []
 
-        for token_type, token in pygments.lex(content, SampLexer()):
+        lexer = SampLexer()
+        # remove curly braces or unescape them
+        lexer.add_filter(unescape())
+        # merge neighboring tokens of the same type
+        lexer.add_filter("tokenmerge")
+
+        for token_type, token in pygments.lex(content, lexer):
             logger.debug(f"TOK: {token} of {token_type}")
             if token_type == Generic.Prompt:
                 result.append(nodes.inline(token, token, classes=["gp"]))
             elif token_type == Generic.Emph:
                 result.append(nodes.emphasis(token, token, classes=["var"]))
-            elif token_type == Generic.Punctuation:
-                # don't carry over the curly braces
-                continue
             else:
-                # unescape remaining curly braces
-                token = re.sub(r"\\(?={|})", "", token)
                 result.append(nodes.Text(token, token))
         return result
 

@@ -6,6 +6,7 @@ from typing import Any
 import nox
 from nox.sessions import Session
 
+nox.options.stop_on_first_error = True
 nox.options.sessions = ["tests", "lint", "mypy", "pytype", "safety"]
 locations = ["src", "tests", "noxfile.py"]
 python_versions = ["3.6", "3.7", "3.8", "3.9"]
