@@ -89,7 +89,7 @@ def typeguard(session: Session) -> None:
     session.run("pytest", f"--typeguard-packages={package}", *session.posargs)
 
 
-@nox.session(python="3.8")
+@nox.session(python="3.9")
 def safety(session: Session) -> None:
     """Check for insecure dependencies with safety."""
     with tempfile.NamedTemporaryFile() as requirements:
@@ -105,7 +105,7 @@ def safety(session: Session) -> None:
         session.run("safety", "check", f"--file={requirements.name}", "--full-report")
 
 
-@nox.session(python="3.8")
+@nox.session(python="3.9")
 def coverage(session: Session) -> None:
     """Upload coverage report."""
     install_constrained_version(session, "coverage[toml]", "codecov")
@@ -113,7 +113,7 @@ def coverage(session: Session) -> None:
     session.run("codecov", *session.posargs)
 
 
-@nox.session(python="3.8")
+@nox.session(python="3.9")
 def black(session: Session) -> None:
     """Format code with Black."""
     args = session.posargs or locations
