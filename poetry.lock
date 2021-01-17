@@ -659,7 +659,7 @@ testing = ["fields", "hunter", "process-tests (==2.0.2)", "six", "pytest-xdist",
 
 [[package]]
 name = "pytype"
-version = "2021.1.8"
+version = "2021.1.14"
 description = "Python type inferencer"
 category = "dev"
 optional = false
@@ -951,7 +951,7 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.6.1, <4.0.0"
-content-hash = "512fb3e77ed78d50bcb3f76493b928d7afbcde3ccca77b8dbc867f376c6ab1f7"
+content-hash = "5dd1a5eb598a042399fec2af3a225e79e45ab87738dc05918b0951249c5a305e"
 
 [metadata.files]
 alabaster = [
@@ -999,6 +999,7 @@ click = [
 ]
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
+    {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 coverage = [
     {file = "coverage-5.3.1-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:fabeeb121735d47d8eab8671b6b031ce08514c86b7ad8f7d5490a7b6dcd6267d"},
@@ -1285,13 +1286,13 @@ pytest-cov = [
     {file = "pytest_cov-2.10.1-py2.py3-none-any.whl", hash = "sha256:45ec2d5182f89a81fc3eb29e3d1ed3113b9e9a873bcddb2a71faaab066110191"},
 ]
 pytype = [
-    {file = "pytype-2021.1.8-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:d9347bb58c3d6bfc99997a11c802a2dfb7e64930148da025a0d92f2924e64a2c"},
-    {file = "pytype-2021.1.8-cp36-cp36m-manylinux2014_x86_64.whl", hash = "sha256:e022a03eca6d82280d6cda1980de0aa1382cd28925e362fd566a0d675558fc0e"},
-    {file = "pytype-2021.1.8-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:ad19558a14764f62ac58e3b4c06c58363052b7430588ddbed6f9f716cd3bb80e"},
-    {file = "pytype-2021.1.8-cp37-cp37m-manylinux2014_x86_64.whl", hash = "sha256:c7e214135d94859b015cdcf8193e7657e0968c800d3e1c7175f0f24328bc7099"},
-    {file = "pytype-2021.1.8-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:d6cd7d0067e338142f269d2d43c959a165da51de194cc1b0c442c097d4584042"},
-    {file = "pytype-2021.1.8-cp38-cp38-manylinux2014_x86_64.whl", hash = "sha256:7fa68ff1277472fbecd178a02fd1e3126651a64ed30da7daa187dfd99f53f07e"},
-    {file = "pytype-2021.1.8.tar.gz", hash = "sha256:911ecff76f5febb5f6ba03c1b217eb5b79078b97a33b6e0aadf2e34f1d5a703e"},
+    {file = "pytype-2021.1.14-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:e11dc7779fb519dd532b164ab31e1fa272bb27cd46d38243eeee7353a31d455c"},
+    {file = "pytype-2021.1.14-cp36-cp36m-manylinux2014_x86_64.whl", hash = "sha256:25fa82e74934fbbb26dd1dd5d92d24358c0008d7721dcaf17e1c7352e831daca"},
+    {file = "pytype-2021.1.14-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:9fa92038c44738046249a3a0a5079d3225e6936f7845be30f02b634d75c9ad72"},
+    {file = "pytype-2021.1.14-cp37-cp37m-manylinux2014_x86_64.whl", hash = "sha256:895bacb61442c6309292f8b6bbefad123103300c0b4da0f6704de7e8b45df9d8"},
+    {file = "pytype-2021.1.14-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:763bc21bcee6089cb1d1dc871277bb4e214e3676d83f6ca785700510891cae49"},
+    {file = "pytype-2021.1.14-cp38-cp38-manylinux2014_x86_64.whl", hash = "sha256:27e7f0a14bae35fb16b32e239102979a5ed5c6dc060eb8c8408609a74b75912c"},
+    {file = "pytype-2021.1.14.tar.gz", hash = "sha256:d7778f2b88de807294a24df6f9e3dfee707820d6144641dba3e8d1d588a44d8d"},
 ]
 pytz = [
     {file = "pytz-2020.5-py2.py3-none-any.whl", hash = "sha256:16962c5fb8db4a8f63a26646d8886e9d769b6c511543557bc84e9569fb9a9cb4"},
@@ -1308,6 +1309,8 @@ pyyaml = [
     {file = "PyYAML-5.3.1-cp37-cp37m-win_amd64.whl", hash = "sha256:73f099454b799e05e5ab51423c7bcf361c58d3206fa7b0d555426b1f4d9a3eaf"},
     {file = "PyYAML-5.3.1-cp38-cp38-win32.whl", hash = "sha256:06a0d7ba600ce0b2d2fe2e78453a470b5a6e000a985dd4a4e54e436cc36b0e97"},
     {file = "PyYAML-5.3.1-cp38-cp38-win_amd64.whl", hash = "sha256:95f71d2af0ff4227885f7a6605c37fd53d3a106fcab511b8860ecca9fcf400ee"},
+    {file = "PyYAML-5.3.1-cp39-cp39-win32.whl", hash = "sha256:ad9c67312c84def58f3c04504727ca879cb0013b2517c85a9a253f0cb6380c0a"},
+    {file = "PyYAML-5.3.1-cp39-cp39-win_amd64.whl", hash = "sha256:6034f55dab5fea9e53f436aa68fa3ace2634918e8b5994d82f3621c04ff5ed2e"},
     {file = "PyYAML-5.3.1.tar.gz", hash = "sha256:b8eac752c5e14d3eca0e6dd9199cd627518cb5ec06add0de9d32baeee6fe645d"},
 ]
 regex = [
