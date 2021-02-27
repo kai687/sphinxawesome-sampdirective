@@ -34,16 +34,8 @@ def tests(session: Session, sphinx: str) -> None:
     args = session.posargs or ["--cov"]
     session.run("poetry", "install", "--no-dev", external=True)
     install_constrained_version(session, "coverage[toml]", "pytest", "pytest-cov")
-    session.run("poetry", "run", "pip", "install", f"sphinx=={sphinx}", external=True)
+    session.install(f"sphinx=={sphinx}")
     session.run("pytest", *args)
-    session.run(
-        "poetry",
-        "run",
-        "python",
-        "-c",
-        "import sphinx; print(sphinx.__version__)",
-        external=True,
-    )
 
 
 @nox.session(python=python_versions)
