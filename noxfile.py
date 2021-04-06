@@ -97,7 +97,7 @@ def safety(session: Session) -> None:
         session.run("safety", "check", f"--file={requirements.name}", "--full-report")
 
 
-@nox.session(python="3.9")
+@nox.session(python=python_versions[-1])
 def coverage(session: Session) -> None:
     """Upload coverage report."""
     install_constrained_version(session, "coverage[toml]", "codecov")
@@ -105,9 +105,17 @@ def coverage(session: Session) -> None:
     session.run("codecov", *session.posargs)
 
 
-@nox.session(python="3.9")
+@nox.session(python=python_versions[-1])
 def black(session: Session) -> None:
     """Format code with Black."""
     args = session.posargs or locations
     install_constrained_version(session, "black")
     session.run("black", *args)
+
+
+@nox.session(python=python_versions[-1])
+def isort(session: Session) -> None:
+    """Reorder imports with isort."""
+    args = session.posargs or locations
+    install_constrained_version(session, "isort")
+    session.run("isort", *args)

@@ -8,18 +8,18 @@ the builtin inline ``:samp:`` role, but for blocks.
 """
 
 try:
-    from importlib.metadata import version, PackageNotFoundError  # type: ignore
+    from importlib.metadata import PackageNotFoundError, version  # type: ignore
 except ImportError:  # pragma: nocover
     from importlib_metadata import version, PackageNotFoundError  # type: ignore
 
 import re
 from typing import Any, Dict, Iterator, List
 
+import pygments
 from docutils import nodes
 from docutils.nodes import Node
-import pygments
 from pygments.filter import simplefilter
-from pygments.lexer import bygroups, Lexer, RegexLexer
+from pygments.lexer import Lexer, RegexLexer, bygroups
 from pygments.token import Generic, Text  # noqa: F401
 from sphinx.application import Sphinx
 from sphinx.util import logging
