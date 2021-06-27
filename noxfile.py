@@ -58,8 +58,10 @@ def lint(session: Session) -> None:
 @nox.session(python=python_versions)
 def mypy(session: Session) -> None:
     """Check types with mypy."""
-    args = session.posargs or locations
-    install_constrained_version(session, "mypy", "types-docutils")
+    args = session.posargs
+    install_constrained_version(
+        session, "mypy", "types-docutils", "pytest", "sphinx", "nox"
+    )
     session.run("mypy", *args)
 
 

@@ -32,7 +32,7 @@ def test_returns_warning_without_extension(
 
     assert 'Unknown directive type "samp"' in warning.getvalue()
 
-    et = etree_parse(app.outdir / "index.xml")
+    et = etree_parse(app.outdir / "index.xml")  # type: ignore
     blocks = et.findall("./section/literal_block")
     assert len(blocks) == 0
 
@@ -56,7 +56,7 @@ def test_finds_samp_directives(app: Sphinx) -> None:
     """It finds all samp directives."""
     app.builder.build_all()
 
-    et = etree_parse(app.outdir / "index.xml")
+    et = etree_parse(app.outdir / "index.xml")  # type: ignore
     blocks = et.findall("./section/literal_block")
     assert len(blocks) == 1
     prompts = blocks[0].findall("inline")

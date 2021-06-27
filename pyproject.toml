@@ -34,7 +34,7 @@ flake8-black = "^0.2.1"
 flake8-bandit = "^2.1.2"
 flake8-bugbear = "^21.3.2"
 flake8-docstrings = "^1.6.0"
-black = "^21.0b6"
+black = "^21.6b0"
 mypy = "^0.910"
 typeguard = "^2.12.1"
 safety = "^1.10.3"
@@ -56,6 +56,13 @@ fail_under = 100
 [tool.isort]
 multi_line_output = 3
 profile = "black"
+
+[tool.mypy]
+files = ["noxfile.py", "src/**/*.py", "tests/**/*.py"]
+
+[[tool.mypy.overrides]]
+module = ["pygments.*"]
+ignore_missing_imports = true
 
 [build-system]
 requires = ["poetry>=0.12"]
