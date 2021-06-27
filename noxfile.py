@@ -7,7 +7,7 @@ import nox
 from nox.sessions import Session
 
 nox.options.stop_on_first_error = True
-nox.options.sessions = ["tests", "lint", "mypy", "pytype", "safety"]
+nox.options.sessions = ["tests", "lint", "mypy", "safety"]
 locations = ["src", "tests", "noxfile.py"]
 python_versions = ["3.6", "3.7", "3.8", "3.9"]
 
@@ -28,7 +28,7 @@ def install_constrained_version(session: Session, *args: str, **kwargs: Any) -> 
 
 
 @nox.session(python=python_versions)
-@nox.parametrize("sphinx", ["2.*", "3.*"])
+@nox.parametrize("sphinx", ["3.*", "4.*"])
 def tests(session: Session, sphinx: str) -> None:
     """Run unit tests."""
     args = session.posargs or ["--cov"]
@@ -50,7 +50,6 @@ def lint(session: Session) -> None:
         "flake8-black",
         "flake8-bugbear",
         "flake8-docstrings",
-        "flake8-import-order",
         "flake8-implicit-str-concat",
     )
     session.run("flake8", *args)
@@ -60,16 +59,8 @@ def lint(session: Session) -> None:
 def mypy(session: Session) -> None:
     """Check types with mypy."""
     args = session.posargs or locations
-    install_constrained_version(session, "mypy")
+    install_constrained_version(session, "mypy", "types-docutils")
     session.run("mypy", *args)
-
-
-@nox.session(python=[v for v in python_versions if float(v) < 3.9])
-def pytype(session: Session) -> None:
-    """Check types with pytype."""
-    args = session.posargs or ["--disable=import-error", *locations]
-    install_constrained_version(session, "pytype")
-    session.run("pytype", *args)
 
 
 @nox.session(python=python_versions)
