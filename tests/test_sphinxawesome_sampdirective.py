@@ -28,7 +28,8 @@ def test_returns_warning_without_extension(
     app: Sphinx, status: StringIO, warning: StringIO
 ) -> None:
     """It returns a warning if the extension is not added to the config."""
-    app.builder.build_all()
+    if app.builder is not None:
+        app.builder.build_all()
 
     assert 'Unknown directive type "samp"' in warning.getvalue()
 
@@ -44,7 +45,8 @@ def test_does_not_return_warning_with_extension(
     app: Sphinx, status: StringIO, warning: StringIO
 ) -> None:
     """It does not return a warning if the extension is enabled."""
-    app.builder.build_all()
+    if app.builder is not None:
+        app.builder.build_all()
 
     assert "" in warning.getvalue()
 
@@ -54,7 +56,8 @@ def test_does_not_return_warning_with_extension(
 )
 def test_finds_samp_directives(app: Sphinx) -> None:
     """It finds all samp directives."""
-    app.builder.build_all()
+    if app.builder is not None:
+        app.builder.build_all()
 
     et = etree_parse(app.outdir / "index.xml")  # type: ignore
     blocks = et.findall("./section/literal_block")
