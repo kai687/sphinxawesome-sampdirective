@@ -868,7 +868,7 @@ test = ["pytest", "typing-extensions", "mypy"]
 
 [[package]]
 name = "types-docutils"
-version = "0.17.7"
+version = "0.18.0"
 description = "Typing stubs for docutils"
 category = "dev"
 optional = false
@@ -931,7 +931,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.6.2, <4.0.0"
-content-hash = "fc4f48342fabe40ccd14d36774b07a8d6969e8386f3aa775fe86cde5ed14890b"
+content-hash = "f50666ff49436a9d3d3f565e409ef62033e72d347eda35a1834d110de63c46be"
 
 [metadata.files]
 alabaster = [
@@ -1440,8 +1440,8 @@ typeguard = [
     {file = "typeguard-2.13.3.tar.gz", hash = "sha256:00edaa8da3a133674796cf5ea87d9f4b4c367d77476e185e80251cc13dfbb8c4"},
 ]
 types-docutils = [
-    {file = "types-docutils-0.17.7.tar.gz", hash = "sha256:3d856ea26551a998c8e2c99a0bafe5e4d391811955f17dab6c9be73b0fc67b66"},
-    {file = "types_docutils-0.17.7-py3-none-any.whl", hash = "sha256:d35acc7e3308b464b82b54a2e641b9f132dfe0b14f199f220c58a696ce585428"},
+    {file = "types-docutils-0.18.0.tar.gz", hash = "sha256:14f781eb28d89a1cd61f1c41bd0776ad3bb4e2333d317c37d2c67f2eaf5891fe"},
+    {file = "types_docutils-0.18.0-py3-none-any.whl", hash = "sha256:f0305109169326edffd98c128f542f773be06a1502a17d96359c53e31082db19"},
 ]
 typing-extensions = [
     {file = "typing_extensions-3.10.0.2-py2-none-any.whl", hash = "sha256:d8226d10bc02a29bcc81df19a26e56a9647f8b0a6d4a83924139f4a8b01f17b7"},
