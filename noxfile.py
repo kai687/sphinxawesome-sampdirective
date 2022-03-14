@@ -56,20 +56,12 @@ def typeguard(session: Session) -> None:
     session.run("pytest", f"--typeguard-packages={package}", *session.posargs)
 
 
-@session(python="3.9")
+@session(python=python_versions[-1])
 def safety(session: Session) -> None:
     """Check for insecure dependencies with safety."""
-    with tempfile.NamedTemporaryFile() as requirements:
-        session.run(
-            "poetry",
-            "export",
-            "--dev",
-            "--format=requirements.txt",
-            f"--output={requirements.name}",
-            external=True,
-        )
-        session.install("safety")
-        session.run("safety", "check", f"--file={requirements.name}", "--full-report")
+    requirements = session.poetry.export_requirements()
+    session.install("safety")
+    session.run("safety", "check", f"--file={requirements}", "--full-report")
 
 
 @session(python=python_versions[-1])
