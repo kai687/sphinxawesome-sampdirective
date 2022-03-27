@@ -1,7 +1,4 @@
 """Nox sessions."""
-
-import tempfile
-
 import nox
 from nox_poetry import Session, session
 
