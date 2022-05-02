@@ -121,7 +121,7 @@ class SampDirective(SphinxDirective):
             elif token_type == Generic.Emph:
                 result.append(nodes.emphasis(token, token, classes=["var"]))
             else:
-                result.append(nodes.Text(token, token))
+                result.append(nodes.Text(token))
         return result
 
 
