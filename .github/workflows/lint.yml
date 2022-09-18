@@ -14,13 +14,40 @@ jobs:
     name: Python ${{ matrix.python-version }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
       - name: Set up python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
+
+      - name: Update pip
         run: |
-          pip install --constraint=.github/workflows/constraints.txt poetry nox nox-poetry
-      - name: Run nox workflow
-        run: nox -p ${{ matrix.python-version }} -k "not (tests or coverage)"
+          pip install --constraint=.github/workflows/constraints.txt pip
+          pip --version
+
+      - name: Update Pip in virtual environments
+        shell: python
+        run: |
+          import os
+          import pip
+
+          with open(os.environ["GITHUB_ENV"], mode="a") as io:
+            print(f"VIRTUALENV_PIP={pip.__version__}", file=io)
+
+      - name: Install Poetry
+        run: |
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt poetry
+          poetry --version
+
+      - name: Install Nox
+        run: |
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt nox
+          nox --version
+
+      - name: Install nox-poetry
+        run: |
+          pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
+
+      - name: Run Nox workflow
+        run: nox --python ${{ matrix.python-version }} --keywords "not (tests or coverage)"

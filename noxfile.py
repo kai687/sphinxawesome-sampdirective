@@ -13,7 +13,6 @@ def tests(session: Session) -> None:
     """Run unit tests."""
     args = session.posargs or ["--cov"]
     deps = ["coverage[toml]", "pytest", "pytest-cov"]
-    session.run("poetry", "install", "--no-dev", external=True)
     session.install(".", *deps)
     session.run("pytest", *args)
 
