@@ -50,4 +50,4 @@ jobs:
           pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
 
       - name: Run Nox workflow
-        run: nox --python ${{ matrix.python-version }} --keywords "not (tests or coverage)"
+        run: nox --python ${{ matrix.python-version }} --keywords "not coverage"
