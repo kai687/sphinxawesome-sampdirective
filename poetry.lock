@@ -859,7 +859,7 @@ testing = ["coverage (>=6.2)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.11"
-content-hash = "6ef7e151d510716744fe609d95d3f27c4a9fd3c27cf7f5fd8957ad5af486e61d"
+content-hash = "4be4f50c9df18b6fd54e825acdd1df52034ed0e5dd23c1fb3437fb09ad376421"
 
 [metadata.files]
 alabaster = [
