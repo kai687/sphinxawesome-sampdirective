@@ -6,7 +6,7 @@
 ![Code Style](https://img.shields.io/badge/Code%20Style-Black-000000?style=for-the-badge)
 
 The awesome `sampdirective` extension can be used to highlight placeholder variables in code blocks,
-much like Sphinx's [`samp`]((https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#role-samp) interpreted text role.
+much like Sphinx's [`samp`](https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#role-samp) interpreted text role.
 
 ## Install
 
