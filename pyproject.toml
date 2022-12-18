@@ -38,7 +38,7 @@ black = "^22.10"
 mypy = "^0.991"
 typeguard = "^2.13.3"
 safety = "^2.3.3"
-isort = "^5.10.1"
+isort = "^5.11.3"
 types-docutils = "^0.19.1"
 
 [tool.poetry.group.dev.dependencies]
