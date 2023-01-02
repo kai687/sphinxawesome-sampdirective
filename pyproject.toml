@@ -26,19 +26,19 @@ importlib_metadata = {version = ">=1.6.1,<5.0.0", python = "<3.8"}
 [tool.poetry.dev-dependencies]
 pytest = "^7.2"
 pytest-cov = "^4.0"
-pre-commit = "^2.17.0"
-coverage = {extras = ["toml"], version = "^6.5"}
+pre-commit = "^2.21.0"
+coverage = {extras = ["toml"], version = "^7.0"}
 flake8 = "^3.9.2"
 flake8-annotations = "^2.9.1"
-flake8-black = "^0.3.5"
+flake8-black = "^0.3.6"
 flake8-bandit = "^3.0.0"
-flake8-bugbear = "^22.10.27"
+flake8-bugbear = "^22.12.6"
 flake8-docstrings = "^1.6.0"
-black = "^22.10"
+black = "^22.12"
 mypy = "^0.991"
 typeguard = "^2.13.3"
 safety = "^2.3.5"
-isort = "^5.10.1"
+isort = "^5.11.4"
 types-docutils = "^0.19.1"
 
 [tool.poetry.group.dev.dependencies]
