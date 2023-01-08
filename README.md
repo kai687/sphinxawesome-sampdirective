@@ -1,9 +1,6 @@
 # Sphinx awesome sampdirective
 
-![GitHub](https://img.shields.io/github/license/kai687/sphinxawesome-sampdirective?color=blue&style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/kai687/sphinxawesome-sampdirective/Run%20unit%20tests?style=for-the-badge)
-![PyPI](https://img.shields.io/pypi/v/sphinxawesome-sampdirective?style=for-the-badge)
-![Code Style](https://img.shields.io/badge/Code%20Style-Black-000000?style=for-the-badge)
+> **Warning**: **This project is in archive mode.** The ability to highlight placeholder variables in code blocks is much better addressed either by custom JavaScript or by post-processing the syntax-highlighted block. If you want to see an example of the latter, see the [Awesome Sphinx theme](https://github.com/kai687/sphinxawesome-theme).
 
 The awesome `sampdirective` extension can be used to highlight placeholder variables in code blocks,
 much like Sphinx's [`samp`](https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#role-samp) interpreted text role.
